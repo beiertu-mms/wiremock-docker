@@ -1,0 +1,4 @@
+*.json
+!hello.json
+!not-found.json
+!general.json
