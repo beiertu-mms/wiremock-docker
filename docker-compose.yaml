@@ -5,9 +5,8 @@ services:
   wiremock:
     image: wiremock/wiremock
     command: "--verbose"
-    network_mode: host
-    expose:
-      - 8080:8080
-      - 8443:8443
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8443:8443"
     volumes:
       - ./wiremock:/home/wiremock
