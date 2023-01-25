@@ -1,0 +1,37 @@
+---
+name: CI
+on:
+  push:
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start stack
+        run: docker compose up -d
+
+      - name: Wait for wiremock to be ready
+        run: sleep 10
+
+      - name: Test endpoint
+        run: |
+          RESPONSE=$(curl -s --retry 10 --retry-connrefused "http://localhost:8080/v1/hello")
+          echo -e "Got response from mock:\n$RESPONSE"
+
+          if [[ $(echo "$RESPONSE" | jq -r '.id') != "001" ]]; then
+            echo "Expect id in the response json to be '001'"
+            exit 1
+          fi
+
+          if [[ $(echo " $RESPONSE" | jq -r '.value') != "There" ]]; then
+            echo "Expect value in the response json to be 'There'"
+            exit 1
+          fi
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: docker compose down
