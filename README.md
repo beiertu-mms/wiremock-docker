@@ -1,5 +1,5 @@
 # Wiremock in docker compose
-[![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](./LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![CI](https://github.com/beiertu-mms/wiremock-docker/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/beiertu-mms/wiremock-docker/actions/workflows/ci.yaml)
 
 Start an instance of [wiremock](https://wiremock.org/) using [docker compose](https://docs.docker.com/compose/).
