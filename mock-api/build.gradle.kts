@@ -14,7 +14,7 @@ dependencies {
     implementation("org.http4k:http4k-client-apache")
 
     implementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
-    implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     implementation("ch.qos.logback:logback-classic:1.4.5")
 }
 
