@@ -31,14 +31,32 @@ jobs:
       - name: Get changed files
         id: changed
         uses: tj-actions/changed-files@v35
+        with:
+          separator: ","
 
       - name: Output result
         id: result
         run: |
-          echo "These file(s) has/have been changed:"
-          echo "${{ steps.changed.outputs.all_changed_files }}"
+          CHANGES=${{ steps.changed.outputs.all_changed_files }}
 
-          echo "value=" >> "$GITHUB_OUTPUT"
+          RESULT=""
+
+          if [[ $CHANGES =~ ^.*(docker-compose\.yaml|wiremock\.Dockerfile).*$ ]]; then
+            echo "Dockerfile has been changed"
+            RESULT="DOCKER"
+          fi
+          if [[ $CHANGES =~ ^.*(mock-api\/.*).*$ ]]; then
+            echo "mock-api has been changed"
+            RESULT="$RESULT MOCK-API"
+          fi
+
+          VALUE=$(echo "$RESULT" | xargs)
+          if [[ -z "$VALUE" ]]; then
+            RESULT="SKIPPED"
+          fi
+          echo "result = $RESULT"
+
+          echo "value=$RESULT" >> "$GITHUB_OUTPUT"
 
 #  ci:
 #    name: CI
