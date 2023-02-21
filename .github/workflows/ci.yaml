@@ -93,6 +93,14 @@ jobs:
         if: ${{ always() }}
         run: docker compose down
 
+  skip_docker:
+    name: Build docker
+    runs-on: ubuntu-latest
+    needs: determine_build
+    if: ${{ needs.determine_build.outputs.docker == '0' }}
+    steps:
+      - run: echo 'Skip docker check as non of the docker files have not been changed'
+
   gradle:
     name: Build gradle
     runs-on: ubuntu-latest
@@ -113,10 +121,10 @@ jobs:
         working-directory: mock-api
         run: ./gradlew build -i
 
-  skipped:
-    name: Skip build
+  skip_gradle:
+    name: Build gradle
     runs-on: ubuntu-latest
     needs: determine_build
-    if: ${{ needs.determine_build.outputs.docker == '0' && needs.determine_build.outputs.gradle == '0' }}
+    if: ${{ needs.determine_build.outputs.gradle == '0' }}
     steps:
-      - run: echo 'No relevant changes. Skip build.'
+      - run: echo 'Skip gradle check as the gradle module has not been changed'
