@@ -32,3 +32,7 @@ And their referenced response payload [hello.json response](./wiremock/__files/h
 
 For more information about the mappings, see the [Wiremock documentation](https://wiremock.org/docs/stubbing/).
 
+## Mapping Creation
+
+To create new request mapping, the [main function in App.kt](./mock-api/src/main/kotlin/de/beiertu/wiremock/docker/App.kt)
+in [mock-api](./mock-api) can be used.
