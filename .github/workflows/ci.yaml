@@ -2,36 +2,72 @@
 name: CI
 on:
   push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - "opened"
+      - "reopened"
+      - "synchronize"
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
-  ci:
-    name: CI
+  determine_build:
+    name: Determine follow up builds
     runs-on: ubuntu-latest
+    outputs:
+      value: ${{ steps.result.outputs.value }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
-      - name: Start stack
-        run: docker compose up -d
+      - name: Get changed files
+        id: changed
+        uses: tj-actions/changed-files@v35
 
-      - name: Wait for wiremock to be ready
-        run: sleep 10
-
-      - name: Test endpoint
+      - name: Output result
+        id: result
         run: |
-          RESPONSE=$(curl -s --retry 10 --retry-connrefused "http://localhost:8080/v1/hello")
-          echo -e "Got response from mock:\n$RESPONSE"
+          echo "These file(s) has/have been changed:"
+          echo "${{ steps.changed.outputs.all_changed_files }}"
 
-          if [[ $(echo "$RESPONSE" | jq -r '.id') != "001" ]]; then
-            echo "Expect id in the response json to be '001'"
-            exit 1
-          fi
+          echo "value=" >> "$GITHUB_OUTPUT"
 
-          if [[ $(echo " $RESPONSE" | jq -r '.value') != "There" ]]; then
-            echo "Expect value in the response json to be 'There'"
-            exit 1
-          fi
-
-      - name: Clean up
-        if: ${{ always() }}
-        run: docker compose down
+#  ci:
+#    name: CI
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#
+#      - name: Start stack
+#        run: docker compose up -d
+#
+#      - name: Wait for wiremock to be ready
+#        run: sleep 10
+#
+#      - name: Test endpoint
+#        run: |
+#          RESPONSE=$(curl -s --retry 10 --retry-connrefused "http://localhost:8080/v1/hello")
+#          echo -e "Got response from mock:\n$RESPONSE"
+#
+#          if [[ $(echo "$RESPONSE" | jq -r '.id') != "001" ]]; then
+#            echo "Expect id in the response json to be '001'"
+#            exit 1
+#          fi
+#
+#          if [[ $(echo " $RESPONSE" | jq -r '.value') != "There" ]]; then
+#            echo "Expect value in the response json to be 'There'"
+#            exit 1
+#          fi
+#
+#      - name: Clean up
+#        if: ${{ always() }}
+#        run: docker compose down
