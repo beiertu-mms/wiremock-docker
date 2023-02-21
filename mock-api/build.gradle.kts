@@ -15,7 +15,7 @@ dependencies {
 
     implementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
-    implementation("ch.qos.logback:logback-classic:1.2.11")
+    implementation("ch.qos.logback:logback-classic:1.4.5")
 }
 
 application {
