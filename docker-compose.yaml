@@ -3,7 +3,9 @@ version: '3'
 
 services:
   wiremock:
-    image: wiremock/wiremock
+    build:
+      context: .
+      dockerfile: wiremock.Dockerfile
     command: "--verbose"
     ports:
       - "8080:8080"
