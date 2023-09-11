@@ -13,7 +13,7 @@ dependencies {
     implementation("org.http4k:http4k-core")
     implementation("org.http4k:http4k-client-apache")
 
-    implementation("org.wiremock:wiremock:3.0.1")
+    implementation("org.wiremock:wiremock:3.0.4")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     implementation("ch.qos.logback:logback-classic:1.4.11")
 }
