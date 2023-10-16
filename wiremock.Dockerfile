@@ -1,1 +1,1 @@
-FROM wiremock/wiremock:3.1.0-1-alpine
+FROM wiremock/wiremock:3.2.0-2-alpine
