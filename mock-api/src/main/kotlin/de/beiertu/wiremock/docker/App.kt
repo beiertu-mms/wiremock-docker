@@ -4,7 +4,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMockBuilder
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.http4k.client.ApacheClient
 import org.http4k.core.Method
 import org.http4k.core.Request
@@ -21,11 +21,12 @@ fun main() {
     // Adjust the scheme and port if needed.
     val wireMockUri = URI("http://localhost:8080")
 
-    val wireMockClient = WireMockBuilder()
-        .scheme(wireMockUri.scheme)
-        .host(wireMockUri.host)
-        .port(wireMockUri.port)
-        .build()
+    val wireMockClient =
+        WireMockBuilder()
+            .scheme(wireMockUri.scheme)
+            .host(wireMockUri.host)
+            .port(wireMockUri.port)
+            .build()
 
     // Register a new GET request
     wireMockClient.register(
@@ -38,10 +39,11 @@ fun main() {
 
     // Verify that registered request is working as expected.
     val httpClient = ApacheClient()
-    val wireMockResponse = httpClient(
-        Request(Method.GET, "$wireMockUri/v2/hello")
-            .header("accept", "text/plain"),
-    )
+    val wireMockResponse =
+        httpClient(
+            Request(Method.GET, "$wireMockUri/v2/hello")
+                .header("accept", "text/plain"),
+        )
 
     logger.info {
         """
