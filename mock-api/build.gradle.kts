@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("org.http4k:http4k-bom:5.8.5.1"))
+    implementation(platform("org.http4k:http4k-bom:5.9.0.0"))
     implementation("org.http4k:http4k-core")
     implementation("org.http4k:http4k-client-apache")
 
