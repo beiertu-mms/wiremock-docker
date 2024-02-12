@@ -15,7 +15,7 @@ dependencies {
 
     implementation("org.wiremock:wiremock:3.3.1")
     implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
-    implementation("org.slf4j:slf4j-simple:2.0.11")
+    implementation("org.slf4j:slf4j-simple:2.0.12")
 }
 
 application {
