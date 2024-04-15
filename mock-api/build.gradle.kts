@@ -14,7 +14,7 @@ dependencies {
     implementation("org.http4k:http4k-client-apache")
 
     implementation("org.wiremock:wiremock:3.5.2")
-    implementation("io.github.oshai:kotlin-logging-jvm:6.0.4")
+    implementation("io.github.oshai:kotlin-logging-jvm:6.0.9")
     implementation("org.slf4j:slf4j-simple:2.0.13")
 }
 
