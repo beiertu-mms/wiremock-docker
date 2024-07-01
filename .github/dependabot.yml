@@ -10,14 +10,16 @@ updates:
       prefix: "chore(action): "
 
   - package-ecosystem: "gradle"
-    directory: "/mock-api/"
+    directories:
+      - "**/*"
     schedule:
       interval: "weekly"
     commit-message:
       prefix: "chore(gradle): "
 
   - package-ecosystem: "docker"
-    directory: "/"
+    directories:
+      - "**/*"
     schedule:
       interval: "daily"
     commit-message:
