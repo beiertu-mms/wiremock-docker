@@ -18,6 +18,8 @@ or the new [compose command](https://docs.docker.com/compose/reference/)
 docker compose up
 ```
 
+See also [Wiremock Running in Docker](https://wiremock.org/docs/standalone/docker/) documentation for more information.
+
 ## Wiremock Mappings
 
 Add your mappings json files under `wiremock/mappings` and any response payload under `wiremock/__files`.

@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       docker: ${{ steps.result.outputs.docker }}
-      gradle: ${{ steps.result.outputs.gradle }}
+      maven: ${{ steps.result.outputs.maven }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -46,17 +46,17 @@ jobs:
             DOCKER="1"
           fi
 
-          GRADLE="0"
-          if [[ $CHANGES =~ ^.*(mock-api\/.*).*$ ]]; then
-            echo "mock-api has been changed"
-            GRADLE="1"
+          MAVEN="0"
+          if [[ $CHANGES =~ ^.*(pom|mock-api\/.*).*$ ]]; then
+            echo "parent pom or mock-api has been changed"
+            MAVEN="1"
           fi
 
-          echo -e " docker = $DOCKER \n build_gradle = $GRADLE"
+          echo -e " docker = $DOCKER \n build_maven = $MAVEN"
 
           {
             echo "docker=$DOCKER"
-            echo "gradle=$GRADLE"
+            echo "maven=$MAVEN"
           } >> "$GITHUB_OUTPUT"
 
   docker:
@@ -101,11 +101,11 @@ jobs:
     steps:
       - run: echo 'Skip docker check as non of the docker files have not been changed'
 
-  gradle:
-    name: Build gradle
+  build:
+    name: Build maven
     runs-on: ubuntu-latest
     needs: determine_build
-    if: ${{ needs.determine_build.outputs.gradle == '1' }}
+    if: ${{ needs.determine_build.outputs.maven == '1' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -114,17 +114,16 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
+          java-version: '25'
+          cache: 'maven'
 
       - name: Build and test
-        working-directory: mock-api
-        run: ./gradlew build -i
+        run: mvn clean verify -B -ntp
 
-  skip_gradle:
-    name: Build gradle
+  skip_build:
+    name: Build maven
     runs-on: ubuntu-latest
     needs: determine_build
-    if: ${{ needs.determine_build.outputs.gradle == '0' }}
+    if: ${{ needs.determine_build.outputs.maven == '0' }}
     steps:
-      - run: echo 'Skip gradle check as the gradle module has not been changed'
+      - run: echo 'Skip maven check as the maven module has not been changed'

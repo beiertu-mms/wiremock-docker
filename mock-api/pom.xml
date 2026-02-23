@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+      <groupId>de.beiertu.wiremock.docker</groupId>
+      <artifactId>parent</artifactId>
+      <version>0.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mock-api</artifactId>
+
+    <dependencies>
+      <dependency>
+        <groupId>org.http4k</groupId>
+        <artifactId>http4k-core</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.http4k</groupId>
+        <artifactId>http4k-client-apache</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.wiremock</groupId>
+        <artifactId>wiremock</artifactId>
+        <version>${wiremock.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.oshai</groupId>
+        <artifactId>kotlin-logging-jvm</artifactId>
+        <version>${kotlin-logging-jvm.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4k-simple.version}</version>
+      </dependency>
+    </dependencies>
+
+  <build>
+      <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+  </build>
+</project>
