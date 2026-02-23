@@ -1,12 +1,12 @@
 ---
-version: '3'
-
 services:
   wiremock:
     build:
       context: .
       dockerfile: wiremock.Dockerfile
-    command: "--verbose"
+    command:
+      - "--verbose"
+      - "--local-response-templating"
     ports:
       - "8080:8080"
       - "8443:8443"

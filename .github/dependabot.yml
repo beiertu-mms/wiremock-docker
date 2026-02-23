@@ -9,18 +9,16 @@ updates:
     commit-message:
       prefix: "chore(action): "
 
-  - package-ecosystem: "gradle"
-    directories:
-      - "**/*"
+  - package-ecosystem: "maven"
+    directory: "/"
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "chore(gradle): "
+      prefix: "chore(maven): "
 
   - package-ecosystem: "docker"
-    directories:
-      - "**/*"
+    directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     commit-message:
       prefix: "chore(docker): "
