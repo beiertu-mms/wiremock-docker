@@ -23,7 +23,7 @@
         <maven.compiler.release>${jdk.version}</maven.compiler.release>
 
         <!-- compile dependency versions -->
-        <kotlin.version>2.3.20</kotlin.version>
+        <kotlin.version>2.3.21</kotlin.version>
         <http4k.version>6.44.0.0</http4k.version>
         <wiremock.version>3.13.2</wiremock.version>
         <kotlin-logging-jvm.version>8.0.01</kotlin-logging-jvm.version>
